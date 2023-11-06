@@ -11,7 +11,7 @@ import SwiftUI
 struct CrapsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplashView()
         }
     }
 }

@@ -14,6 +14,8 @@
 		345AA23A2AF2A00A00FE644A /* CrapsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345AA2392AF2A00A00FE644A /* CrapsTests.swift */; };
 		345AA2442AF2A00A00FE644A /* CrapsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345AA2432AF2A00A00FE644A /* CrapsUITests.swift */; };
 		345AA2462AF2A00A00FE644A /* CrapsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345AA2452AF2A00A00FE644A /* CrapsUITestsLaunchTests.swift */; };
+		345AA28A2AF93E3B00FE644A /* Title screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345AA2892AF93E3B00FE644A /* Title screen.swift */; };
+		345AA28C2AF93F4200FE644A /* Splash Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345AA28B2AF93F4200FE644A /* Splash Screen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,9 @@
 		345AA23F2AF2A00A00FE644A /* CrapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CrapsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		345AA2432AF2A00A00FE644A /* CrapsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrapsUITests.swift; sourceTree = "<group>"; };
 		345AA2452AF2A00A00FE644A /* CrapsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrapsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		345AA2882AF8A3F300FE644A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		345AA2892AF93E3B00FE644A /* Title screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Title screen.swift"; sourceTree = "<group>"; };
+		345AA28B2AF93F4200FE644A /* Splash Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Splash Screen.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +79,7 @@
 		345AA21C2AF2A00000FE644A = {
 			isa = PBXGroup;
 			children = (
+				345AA28B2AF93F4200FE644A /* Splash Screen.swift */,
 				345AA2272AF2A00000FE644A /* Craps */,
 				345AA2382AF2A00A00FE644A /* CrapsTests */,
 				345AA2422AF2A00A00FE644A /* CrapsUITests */,
@@ -94,10 +100,12 @@
 		345AA2272AF2A00000FE644A /* Craps */ = {
 			isa = PBXGroup;
 			children = (
+				345AA2882AF8A3F300FE644A /* Info.plist */,
 				345AA2282AF2A00000FE644A /* CrapsApp.swift */,
 				345AA22A2AF2A00000FE644A /* ContentView.swift */,
 				345AA22C2AF2A00900FE644A /* Assets.xcassets */,
 				345AA22E2AF2A00900FE644A /* Preview Content */,
+				345AA2892AF93E3B00FE644A /* Title screen.swift */,
 			);
 			path = Craps;
 			sourceTree = "<group>";
@@ -258,6 +266,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				345AA22B2AF2A00000FE644A /* ContentView.swift in Sources */,
+				345AA28C2AF93F4200FE644A /* Splash Screen.swift in Sources */,
+				345AA28A2AF93E3B00FE644A /* Title screen.swift in Sources */,
 				345AA2292AF2A00000FE644A /* CrapsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,11 +430,12 @@
 				DEVELOPMENT_TEAM = JXBBWBBFGX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Craps/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -449,11 +460,12 @@
 				DEVELOPMENT_TEAM = JXBBWBBFGX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Craps/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
