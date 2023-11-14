@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    var PlayerCount: Int
     @State var DiceValue1 = 0
     @State var DiceValue2 = 0
     @State var DiceValue3 = 0
@@ -16,48 +17,74 @@ struct ContentView: View {
     @State var rotation = 0.0
     @State var rotation2 = 0.0
     @State var rotation3 = 0.0
+    @State var PlayerScoreArray = [Int]()
+    @State var PLayerTurnIndex = 0
+    @State var PlayerImageArray = ["black", "blue", "brown", "green", "grey", "pink", "red", "teal", "yellow"]
+    
     
     
     var body: some View {
-        HStack {
-            Image(diceOptions[DiceValue1])
-                .resizable()
-                .frame(width: 100, height: 100)
-                .rotationEffect(.degrees(rotation))
-                .rotation3DEffect(.degrees(rotation), axis: (x:1, y:0, z:0))
-                .padding()
-                .onTapGesture {
-                    chooseRandom(times: 3)
-                    withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
-                        rotation += 360
+        VStack{
+            var PlayerScoreArray = Array(repeating: 3, count: PlayerCount)
+            
+            HStack(spacing: (100/CGFloat(PlayerCount))) {
+                ForEach(0..<PlayerCount) {index in
+                    VStack{ Image(PlayerImageArray[index])
+                            .resizable()
+                            .frame(width: 60, height: 80)
+                        Text(String(PlayerScoreArray[index]))
                     }
+                    
                 }
-                .padding()
-            Image(diceOptions[DiceValue2])
-                .resizable()
-                .frame(width: 100, height: 100)
-                .rotationEffect(.degrees(rotation2))
-                .rotation3DEffect(.degrees(rotation2), axis: (x:1, y:0, z:0))
-                .padding()
-                .onTapGesture {
-                    chooseRandom1(times: 3)
-                    withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
-                        rotation2 += 360
+            }
+            Spacer()
+            HStack(spacing: 10) {
+                Image("Icon")
+                    .resizable()
+                    .frame(width: 150, height: 195)
+                Text(String(PlayerScoreArray[0]))
+                    .font(.system(size: 35))
+                Image("Coin")
+                    .resizable()
+                    .frame(width: 80, height: 80)
+                Image(diceOptions[DiceValue1])
+                    .resizable()
+                    .frame(width: 75, height: 75)
+                    .rotationEffect(.degrees(rotation))
+                    .rotation3DEffect(.degrees(rotation), axis: (x:1, y:0, z:0))
+                    .padding()
+                    .onTapGesture {
+                        chooseRandom(times: 3)
+                        withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
+                            rotation += 360
+                        }
                     }
-                }
-                .padding()
-            Image(diceOptions[DiceValue3])
-                .resizable()
-                .frame(width: 100, height: 100)
-                .rotationEffect(.degrees(rotation3))
-                .rotation3DEffect(.degrees(rotation3), axis: (x:1, y:0, z:0))
-                .padding()
-                .onTapGesture {
-                    chooseRandom2(times: 3)
-                    withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
-                        rotation3 += 360
+                Image(diceOptions[DiceValue2])
+                    .resizable()
+                    .frame(width: 75, height: 75)
+                    .rotationEffect(.degrees(rotation2))
+                    .rotation3DEffect(.degrees(rotation2), axis: (x:1, y:0, z:0))
+                    .padding()
+                    .onTapGesture {
+                        chooseRandom1(times: 3)
+                        withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
+                            rotation2 += 360
+                        }
                     }
-                }
+                    .padding()
+                Image(diceOptions[DiceValue3])
+                    .resizable()
+                    .frame(width: 75, height: 75)
+                    .rotationEffect(.degrees(rotation3))
+                    .rotation3DEffect(.degrees(rotation3), axis: (x:1, y:0, z:0))
+                    .padding()
+                    .onTapGesture {
+                        chooseRandom2(times: 3)
+                        withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
+                            rotation3 += 360
+                        }
+                    }
+            }
         }
     }
         func chooseRandom(times:Int) {
@@ -82,12 +109,18 @@ struct ContentView: View {
                 DiceValue3 = Int.random(in: 0...3)
                 chooseRandom2(times: times - 1)
         }
-    }
+        }
+        if times == 1 {
+            
+        }
 }
+    func PlayerScore(){
+        
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(PlayerCount: 3)
     }
 }
