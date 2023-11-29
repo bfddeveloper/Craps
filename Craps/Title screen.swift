@@ -9,6 +9,9 @@ import SwiftUI
 
 struct Title_screen: View {
     @State var PlayerCount = 3
+    @State var OpacLeft = 0.0
+    @State var OpacRight = 1.0
+    
     var body: some View {
         NavigationView {
             VStack{
@@ -23,10 +26,21 @@ struct Title_screen: View {
                         .frame(width: 75, height: 75)
                         .rotationEffect(Angle(degrees: 180))
                         .onTapGesture {
+                            if PlayerCount == 4 {
+                                OpacLeft = 0.0
+                            } else {
+                                OpacLeft = 1.0
+                            }
                             if PlayerCount > 3 {
                                 PlayerCount -= 1
                             }
+                            if PlayerCount == 9 {
+                                OpacRight = 0.0
+                            } else {
+                                OpacRight = 1.0
+                            }
                         }
+                        .opacity(OpacLeft)
                     Text(String(PlayerCount))
                         .font(.largeTitle)
                         .frame(width: 75, height: 75)
@@ -34,10 +48,22 @@ struct Title_screen: View {
                         .resizable()
                         .frame(width: 75, height: 75)
                         .onTapGesture {
+                            if PlayerCount == 8 {
+                                OpacRight = 0.0
+                            } else {
+                                OpacRight = 1.0
+                            }
                             if PlayerCount < 9 {
                                 PlayerCount += 1
                             }
+                            if PlayerCount == 3 {
+                                OpacLeft = 0.0
+                            } else {
+                                OpacLeft = 1.0
+                            }
+                            
                         }
+                        .opacity(OpacRight)
                 }
                 NavigationLink {
                     ContentView(PlayerCount: PlayerCount)

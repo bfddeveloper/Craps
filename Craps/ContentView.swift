@@ -12,7 +12,7 @@ struct ContentView: View {
     @State var DiceValue1 = 0
     @State var DiceValue2 = 0
     @State var DiceValue3 = 0
-    @State var diceOptions = ["Left", "Right", "Center", "Dot"]
+    @State var diceOptions = ["Left", "Right", "Center", "Dot", "Roll"]
     @State var randomValue = 0
     @State var rotation = 0.0
     @State var rotation2 = 0.0
@@ -20,6 +20,8 @@ struct ContentView: View {
     @State var PlayerScoreArray = [Int]()
     @State var PLayerTurnIndex = 0
     @State var PlayerImageArray = ["black", "blue", "brown", "green", "grey", "pink", "red", "teal", "yellow"]
+    @State var Pot = 0
+    @State var PlayerScoreArrayIndex = 0
     
     
     
@@ -37,12 +39,19 @@ struct ContentView: View {
                     
                 }
             }
+            HStack{
+                Image("Coin")
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                Text(String(Pot))
+            }
             Spacer()
             HStack(spacing: 10) {
-                Image("Icon")
+                Image(PlayerImageArray[PLayerTurnIndex])
                     .resizable()
-                    .frame(width: 150, height: 195)
-                Text(String(PlayerScoreArray[0]))
+                    .frame(width: 125, height: 170)
+                
+                Text(String(PlayerScoreArray[PlayerScoreArrayIndex]))
                     .font(.system(size: 35))
                 Image("Coin")
                     .resizable()
@@ -84,6 +93,18 @@ struct ContentView: View {
                             rotation3 += 360
                         }
                     }
+                Image("Arrow")
+                    .resizable()
+                    .frame(width: 75, height: 75)
+                    .onTapGesture {
+                        if PLayerTurnIndex == Int(PlayerCount - 1) {
+                            PlayerScoreArrayIndex = 0
+                            PLayerTurnIndex = 0
+                        } else {
+                            PlayerScoreArrayIndex += 1
+                            PLayerTurnIndex += 1
+                        }
+                    }
             }
         }
     }
@@ -93,6 +114,16 @@ struct ContentView: View {
                     DiceValue1 = Int.random(in: 0...3)
                     chooseRandom(times: times - 1)
             }
+                if times == 1 {
+                    if DiceValue1 == 0 {
+                        if (PlayerScoreArrayIndex - 1) == -1 {
+                            PlayerScoreArray[0] = (PlayerScoreArray[0] - 1)
+                        } else {
+                            PlayerScoreArray[PlayerScoreArrayIndex] -= 1
+                            PlayerScoreArray[(PlayerScoreArrayIndex - 1)] += 1
+                        }
+                    }
+                }
         }
     }
     func chooseRandom1(times:Int) {
@@ -101,6 +132,15 @@ struct ContentView: View {
                 DiceValue2 = Int.random(in: 0...3)
                 chooseRandom1(times: times - 1)
         }
+            if times == 1 {
+                if DiceValue2 == 0 {
+                    if (PlayerScoreArrayIndex - 1) == -1 {
+                        PlayerScoreArray[0] = (PlayerScoreArray[0] - 1)
+                    } else {
+                        PlayerScoreArray[(PlayerScoreArrayIndex - 1)] -= 1
+                    }
+                }
+            }
     }
 }
     func chooseRandom2(times:Int) {
@@ -108,6 +148,16 @@ struct ContentView: View {
             DispatchQueue.main.asyncAfter (deadline: .now() + 1) {
                 DiceValue3 = Int.random(in: 0...3)
                 chooseRandom2(times: times - 1)
+        }
+            if times == 1 {
+            if DiceValue3 == 0 {
+                if (PlayerScoreArrayIndex - 1) == -1 {
+                    
+                    PlayerScoreArray[0] = (PlayerScoreArray[0] - 1)
+                } else {
+                    PlayerScoreArray[(PlayerScoreArrayIndex - 1)] -= 1
+                }
+            }
         }
         }
         if times == 1 {
