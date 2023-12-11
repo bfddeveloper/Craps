@@ -48,6 +48,7 @@ struct Title_screen: View {
                         .resizable()
                         .frame(width: 75, height: 75)
                         .onTapGesture {
+                            
                             if PlayerCount == 8 {
                                 OpacRight = 0.0
                             } else {

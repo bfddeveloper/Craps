@@ -17,94 +17,104 @@ struct ContentView: View {
     @State var rotation = 0.0
     @State var rotation2 = 0.0
     @State var rotation3 = 0.0
-    @State var PlayerScoreArray = [Int]()
+    @State var PlayerScoreArray: [Int]
     @State var PLayerTurnIndex = 0
     @State var PlayerImageArray = ["black", "blue", "brown", "green", "grey", "pink", "red", "teal", "yellow"]
     @State var Pot = 0
     @State var PlayerScoreArrayIndex = 0
+    @State var DiceRolled = 0
+    
+    init(PlayerCount: Int) {
+            self.PlayerCount = PlayerCount
+            self._PlayerScoreArray = State(initialValue: [Int](repeating: 3, count: PlayerCount))
+        }
     
     
     
     var body: some View {
-        VStack{
-            var PlayerScoreArray = Array(repeating: 3, count: PlayerCount)
-            
-            HStack(spacing: (100/CGFloat(PlayerCount))) {
-                ForEach(0..<PlayerCount) {index in
-                    VStack{ Image(PlayerImageArray[index])
-                            .resizable()
-                            .frame(width: 60, height: 80)
-                        Text(String(PlayerScoreArray[index]))
+        NavigationView{
+            VStack{
+                //var PlayerScoreArray = [Int](repeating: 3, count: PlayerCount)
+                HStack(spacing: (100/CGFloat(PlayerCount))) {
+                    ForEach(0..<PlayerCount) {index in
+                        VStack{
+                            Image(PlayerImageArray[index])
+                                .resizable()
+                                .frame(width: 60, height: 80)
+                            Text(String(PlayerScoreArray[index]))
+                        }
+                        
                     }
-                    
                 }
-            }
-            HStack{
-                Image("Coin")
-                    .resizable()
-                    .frame(width: 50, height: 50)
-                Text(String(Pot))
-            }
-            Spacer()
-            HStack(spacing: 10) {
-                Image(PlayerImageArray[PLayerTurnIndex])
-                    .resizable()
-                    .frame(width: 125, height: 170)
-                
-                Text(String(PlayerScoreArray[PlayerScoreArrayIndex]))
-                    .font(.system(size: 35))
-                Image("Coin")
-                    .resizable()
-                    .frame(width: 80, height: 80)
-                Image(diceOptions[DiceValue1])
-                    .resizable()
-                    .frame(width: 75, height: 75)
-                    .rotationEffect(.degrees(rotation))
-                    .rotation3DEffect(.degrees(rotation), axis: (x:1, y:0, z:0))
-                    .padding()
-                    .onTapGesture {
-                        chooseRandom(times: 3)
-                        withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
-                            rotation += 360
+                HStack{
+                    Image("Coin")
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                    Text(String(Pot))
+                }
+                Spacer()
+                Text(String(PlayerScoreArray[0]))
+                HStack(spacing: 10) {
+                    Image(PlayerImageArray[PLayerTurnIndex])
+                        .resizable()
+                        .frame(width: 125, height: 170)
+                    
+                    Text(String(PlayerScoreArray[PlayerScoreArrayIndex]))
+                        .font(.system(size: 35))
+                    Image("Coin")
+                        .resizable()
+                        .frame(width: 80, height: 80)
+                    Image(diceOptions[DiceValue1])
+                        .resizable()
+                        .frame(width: 75, height: 75)
+                        .rotationEffect(.degrees(rotation))
+                        .rotation3DEffect(.degrees(rotation), axis: (x:1, y:0, z:0))
+                        .padding()
+                        .onTapGesture {
+                            chooseRandom(times: 3)
+                            withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
+                                rotation += 360
+                            }
                         }
-                    }
-                Image(diceOptions[DiceValue2])
-                    .resizable()
-                    .frame(width: 75, height: 75)
-                    .rotationEffect(.degrees(rotation2))
-                    .rotation3DEffect(.degrees(rotation2), axis: (x:1, y:0, z:0))
-                    .padding()
-                    .onTapGesture {
-                        chooseRandom1(times: 3)
-                        withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
-                            rotation2 += 360
+                    Image(diceOptions[DiceValue2])
+                        .resizable()
+                        .frame(width: 75, height: 75)
+                        .rotationEffect(.degrees(rotation2))
+                        .rotation3DEffect(.degrees(rotation2), axis: (x:1, y:0, z:0))
+                        .padding()
+                        .onTapGesture {
+                            chooseRandom1(times: 3)
+                            withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
+                                rotation2 += 360
+                            }
                         }
-                    }
-                    .padding()
-                Image(diceOptions[DiceValue3])
-                    .resizable()
-                    .frame(width: 75, height: 75)
-                    .rotationEffect(.degrees(rotation3))
-                    .rotation3DEffect(.degrees(rotation3), axis: (x:1, y:0, z:0))
-                    .padding()
-                    .onTapGesture {
-                        chooseRandom2(times: 3)
-                        withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
-                            rotation3 += 360
+                        .padding()
+                    Image(diceOptions[DiceValue3])
+                        .resizable()
+                        .frame(width: 75, height: 75)
+                        .rotationEffect(.degrees(rotation3))
+                        .rotation3DEffect(.degrees(rotation3), axis: (x:1, y:0, z:0))
+                        .padding()
+                        .onTapGesture {
+                            chooseRandom2(times: 3)
+                            withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
+                                rotation3 += 360
+                            }
                         }
-                    }
-                Image("Arrow")
-                    .resizable()
-                    .frame(width: 75, height: 75)
-                    .onTapGesture {
-                        if PLayerTurnIndex == Int(PlayerCount - 1) {
-                            PlayerScoreArrayIndex = 0
-                            PLayerTurnIndex = 0
-                        } else {
-                            PlayerScoreArrayIndex += 1
-                            PLayerTurnIndex += 1
+                    Image("Arrow")
+                        .resizable()
+                        .frame(width: 75, height: 75)
+                        .onTapGesture {
+                            
+                            if PLayerTurnIndex == Int(PlayerCount - 1) {
+                                PlayerScoreArrayIndex = 0
+                                PLayerTurnIndex = 0
+                            } else {
+                                PlayerScoreArrayIndex += 1
+                                PLayerTurnIndex += 1
+                            }
                         }
-                    }
+                }
             }
         }
     }
@@ -115,16 +125,34 @@ struct ContentView: View {
                     chooseRandom(times: times - 1)
             }
                 if times == 1 {
-                    if DiceValue1 == 0 {
-                        if (PlayerScoreArrayIndex - 1) == -1 {
-                            PlayerScoreArray[0] = (PlayerScoreArray[0] - 1)
-                        } else {
-                            PlayerScoreArray[PlayerScoreArrayIndex] -= 1
-                            PlayerScoreArray[(PlayerScoreArrayIndex - 1)] += 1
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        if self.DiceValue1 == 0 {
+                            if (PlayerScoreArrayIndex - 1) == -1 {
+                                self.PlayerScoreArray[(PlayerCount - 1)] += 1
+                                self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
+                            } else {
+                                self.PlayerScoreArray[(PlayerScoreArrayIndex - 1)] += 1
+                                self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
+                            }
+                            if DiceValue1 == 1 {
+                                if (PlayerScoreArrayIndex + 1) > PlayerCount {
+                                    self.PlayerScoreArray[0] += 1
+                                    self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
+                                } else {
+                                    self.PlayerScoreArray[(PlayerScoreArrayIndex + 1)] += 1
+                                    self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
+                                }
+                            }
+                            if DiceValue1 == 2 {
+                                Pot += 1
+                                self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
+                            }
                         }
+                        DiceRolled += 1
                     }
                 }
         }
+            
     }
     func chooseRandom1(times:Int) {
         if times > 0 {
@@ -133,12 +161,30 @@ struct ContentView: View {
                 chooseRandom1(times: times - 1)
         }
             if times == 1 {
-                if DiceValue2 == 0 {
-                    if (PlayerScoreArrayIndex - 1) == -1 {
-                        PlayerScoreArray[0] = (PlayerScoreArray[0] - 1)
-                    } else {
-                        PlayerScoreArray[(PlayerScoreArrayIndex - 1)] -= 1
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.25) {
+                    if DiceValue2 == 0 {
+                        if (PlayerScoreArrayIndex - 1) == -1 {
+                            self.PlayerScoreArray[(PlayerCount - 1)] += 1
+                            self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
+                        } else {
+                            self.PlayerScoreArray[(PlayerScoreArrayIndex - 1)] += 1
+                            self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
+                        }
                     }
+                    if DiceValue2 == 1 {
+                        if (PlayerScoreArrayIndex + 1) > PlayerCount {
+                            self.PlayerScoreArray[0] += 1
+                            self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
+                        } else {
+                            self.PlayerScoreArray[(PlayerScoreArrayIndex + 1)] += 1
+                            self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
+                        }
+                    }
+                    if DiceValue2 == 2 {
+                        Pot += 1
+                        self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
+                    }
+                    DiceRolled += 1
                 }
             }
     }
@@ -150,18 +196,35 @@ struct ContentView: View {
                 chooseRandom2(times: times - 1)
         }
             if times == 1 {
-            if DiceValue3 == 0 {
-                if (PlayerScoreArrayIndex - 1) == -1 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.50) {
                     
-                    PlayerScoreArray[0] = (PlayerScoreArray[0] - 1)
-                } else {
-                    PlayerScoreArray[(PlayerScoreArrayIndex - 1)] -= 1
+                    
+                    
+                    if DiceValue3 == 0 {
+                        if (PlayerScoreArrayIndex - 1) == -1 {
+                            self.PlayerScoreArray[(PlayerCount - 1)] += 1
+                            self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
+                        } else {
+                            self.PlayerScoreArray[(PlayerScoreArrayIndex - 1)] += 1
+                            self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
+                        }
+                    }
+                    if DiceValue3 == 1 {
+                        if (PlayerScoreArrayIndex + 1) > PlayerCount {
+                            self.PlayerScoreArray[0] += 1
+                            self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
+                        } else {
+                            self.PlayerScoreArray[(PlayerScoreArrayIndex + 1)] += 1
+                            self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
+                        }
+                    }
+                    if DiceValue3 == 2 {
+                        Pot += 1
+                        self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
+                    }
+                    DiceRolled += 1
                 }
             }
-        }
-        }
-        if times == 1 {
-            
         }
 }
     func PlayerScore(){
