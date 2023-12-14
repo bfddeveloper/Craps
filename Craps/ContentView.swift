@@ -23,6 +23,9 @@ struct ContentView: View {
     @State var Pot = 0
     @State var PlayerScoreArrayIndex = 0
     @State var DiceRolled = 0
+    @State var PassScreenOpac = 0.0
+    @State private var action: Int? = 0
+    @State var showView = false
     
     init(PlayerCount: Int) {
             self.PlayerCount = PlayerCount
@@ -33,90 +36,121 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView{
-            VStack{
-                //var PlayerScoreArray = [Int](repeating: 3, count: PlayerCount)
-                HStack(spacing: (100/CGFloat(PlayerCount))) {
-                    ForEach(0..<PlayerCount) {index in
-                        VStack{
-                            Image(PlayerImageArray[index])
-                                .resizable()
-                                .frame(width: 60, height: 80)
-                            Text(String(PlayerScoreArray[index]))
-                        }
+            ZStack{
+               
+                if showView{
+                    ZStack{
+                        Rectangle()
+                            .fill(
+                                LinearGradient(
+                                    gradient: Gradient(stops: [
+                                        Gradient.Stop(color: .red, location: 0.5),
+                                        Gradient.Stop(color: .green, location: 0.5)
+                                    ]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing))
+                            .frame(width: 1000, height: 1000)
+                        Text("Pass it to the next guy")
                         
                     }
                 }
-                HStack{
-                    Image("Coin")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                    Text(String(Pot))
-                }
-                Spacer()
-                Text(String(PlayerScoreArray[0]))
-                HStack(spacing: 10) {
-                    Image(PlayerImageArray[PLayerTurnIndex])
-                        .resizable()
-                        .frame(width: 125, height: 170)
-                    
-                    Text(String(PlayerScoreArray[PlayerScoreArrayIndex]))
-                        .font(.system(size: 35))
-                    Image("Coin")
-                        .resizable()
-                        .frame(width: 80, height: 80)
-                    Image(diceOptions[DiceValue1])
-                        .resizable()
-                        .frame(width: 75, height: 75)
-                        .rotationEffect(.degrees(rotation))
-                        .rotation3DEffect(.degrees(rotation), axis: (x:1, y:0, z:0))
-                        .padding()
-                        .onTapGesture {
-                            chooseRandom(times: 3)
-                            withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
-                                rotation += 360
+//                .opacity(PassScreenOpac)
+                VStack{
+                    //var PlayerScoreArray = [Int](repeating: 3, count: PlayerCount)
+                    HStack(spacing: (100/CGFloat(PlayerCount))) {
+                        ForEach(0..<PlayerCount) {index in
+                            VStack{
+                                Image(PlayerImageArray[index])
+                                    .resizable()
+                                    .frame(width: 60, height: 80)
+                                Text(String(PlayerScoreArray[index]))
                             }
-                        }
-                    Image(diceOptions[DiceValue2])
-                        .resizable()
-                        .frame(width: 75, height: 75)
-                        .rotationEffect(.degrees(rotation2))
-                        .rotation3DEffect(.degrees(rotation2), axis: (x:1, y:0, z:0))
-                        .padding()
-                        .onTapGesture {
-                            chooseRandom1(times: 3)
-                            withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
-                                rotation2 += 360
-                            }
-                        }
-                        .padding()
-                    Image(diceOptions[DiceValue3])
-                        .resizable()
-                        .frame(width: 75, height: 75)
-                        .rotationEffect(.degrees(rotation3))
-                        .rotation3DEffect(.degrees(rotation3), axis: (x:1, y:0, z:0))
-                        .padding()
-                        .onTapGesture {
-                            chooseRandom2(times: 3)
-                            withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
-                                rotation3 += 360
-                            }
-                        }
-                    Image("Arrow")
-                        .resizable()
-                        .frame(width: 75, height: 75)
-                        .onTapGesture {
                             
-                            if PLayerTurnIndex == Int(PlayerCount - 1) {
-                                PlayerScoreArrayIndex = 0
-                                PLayerTurnIndex = 0
-                            } else {
-                                PlayerScoreArrayIndex += 1
-                                PLayerTurnIndex += 1
-                            }
                         }
+                    }
+                    HStack{
+                        Image("Coin")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                        Text(String(Pot))
+                    }
+                    Spacer()
+                    Text(String(PlayerScoreArray[0]))
+                    HStack(spacing: 10) {
+                        Image(PlayerImageArray[PLayerTurnIndex])
+                            .resizable()
+                            .frame(width: 125, height: 170)
+                        
+                        Text(String(PlayerScoreArray[PlayerScoreArrayIndex]))
+                            .font(.system(size: 35))
+                        Image("Coin")
+                            .resizable()
+                            .frame(width: 80, height: 80)
+                        Image(diceOptions[DiceValue1])
+                            .resizable()
+                            .frame(width: 75, height: 75)
+                            .rotationEffect(.degrees(rotation))
+                            .rotation3DEffect(.degrees(rotation), axis: (x:1, y:0, z:0))
+                            .padding()
+                            .onTapGesture {
+                                chooseRandom(times: 3)
+                                withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
+                                    rotation += 360
+                                }
+                            }
+                        Image(diceOptions[DiceValue2])
+                            .resizable()
+                            .frame(width: 75, height: 75)
+                            .rotationEffect(.degrees(rotation2))
+                            .rotation3DEffect(.degrees(rotation2), axis: (x:1, y:0, z:0))
+                            .padding()
+                            .onTapGesture {
+                                chooseRandom1(times: 3)
+                                withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
+                                    rotation2 += 360
+                                }
+                            }
+                            .padding()
+                        Image(diceOptions[DiceValue3])
+                            .resizable()
+                            .frame(width: 75, height: 75)
+                            .rotationEffect(.degrees(rotation3))
+                            .rotation3DEffect(.degrees(rotation3), axis: (x:1, y:0, z:0))
+                            .padding()
+                            .onTapGesture {
+                                chooseRandom2(times: 3)
+                                withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
+                                    rotation3 += 360
+                                }
+                            }
+                        Image("Arrow")
+                            .resizable()
+                            .frame(width: 75, height: 75)
+                            .onTapGesture {
+                                self.showView.toggle()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.50) {
+                                    self.showView.toggle()
+                                }
+                                PassScreenOpac = 1.0
+                                if PLayerTurnIndex == Int(PlayerCount - 1) {
+                                    PlayerScoreArrayIndex = 0
+                                    PLayerTurnIndex = 0
+                                } else {
+                                    PlayerScoreArrayIndex += 1
+                                    PLayerTurnIndex += 1
+                                }
+                                
+                            }
+                    }
+                
                 }
+
             }
         }
+        .background(
+                Image("PokerTable")
+                    .resizable()
+            )
     }
         func chooseRandom(times:Int) {
             if times > 0 {
@@ -232,8 +266,10 @@ struct ContentView: View {
     }
 }
 
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(PlayerCount: 3)
     }
 }
+
