@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		344BE1C12B226BC800191848 /* PassSplash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344BE1C02B226BC800191848 /* PassSplash.swift */; };
+		344BE1C52B2B5EF700191848 /* Silkscreen in Resources */ = {isa = PBXBuildFile; fileRef = 344BE1C42B2B5EF700191848 /* Silkscreen */; };
+		344BE1CB2B2BF4FF00191848 /* Silkscreen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 344BE1C72B2B5F0400191848 /* Silkscreen-Regular.ttf */; };
 		345AA2292AF2A00000FE644A /* CrapsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345AA2282AF2A00000FE644A /* CrapsApp.swift */; };
 		345AA22B2AF2A00000FE644A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345AA22A2AF2A00000FE644A /* ContentView.swift */; };
 		345AA22D2AF2A00900FE644A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 345AA22C2AF2A00900FE644A /* Assets.xcassets */; };
@@ -39,6 +41,10 @@
 
 /* Begin PBXFileReference section */
 		344BE1C02B226BC800191848 /* PassSplash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassSplash.swift; sourceTree = "<group>"; };
+		344BE1C42B2B5EF700191848 /* Silkscreen */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Silkscreen; path = ../../../../Downloads/Silkscreen; sourceTree = "<group>"; };
+		344BE1C72B2B5F0400191848 /* Silkscreen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Silkscreen-Regular.ttf"; sourceTree = "<group>"; };
+		344BE1C82B2B5F0400191848 /* Silkscreen-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Silkscreen-Bold.ttf"; sourceTree = "<group>"; };
+		344BE1C92B2B5F0400191848 /* OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
 		345AA2252AF2A00000FE644A /* Craps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Craps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		345AA2282AF2A00000FE644A /* CrapsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrapsApp.swift; sourceTree = "<group>"; };
 		345AA22A2AF2A00000FE644A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -80,6 +86,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		344BE1C62B2B5F0400191848 /* Silkscreen */ = {
+			isa = PBXGroup;
+			children = (
+				344BE1C72B2B5F0400191848 /* Silkscreen-Regular.ttf */,
+				344BE1C82B2B5F0400191848 /* Silkscreen-Bold.ttf */,
+				344BE1C92B2B5F0400191848 /* OFL.txt */,
+			);
+			path = Silkscreen;
+			sourceTree = "<group>";
+		};
 		345AA21C2AF2A00000FE644A = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +121,7 @@
 		345AA2272AF2A00000FE644A /* Craps */ = {
 			isa = PBXGroup;
 			children = (
+				344BE1C62B2B5F0400191848 /* Silkscreen */,
 				345AA2882AF8A3F300FE644A /* Info.plist */,
 				345AA2282AF2A00000FE644A /* CrapsApp.swift */,
 				345AA22A2AF2A00000FE644A /* ContentView.swift */,
@@ -137,6 +154,7 @@
 			children = (
 				345AA2432AF2A00A00FE644A /* CrapsUITests.swift */,
 				345AA2452AF2A00A00FE644A /* CrapsUITestsLaunchTests.swift */,
+				344BE1C42B2B5EF700191848 /* Silkscreen */,
 			);
 			path = CrapsUITests;
 			sourceTree = "<group>";
@@ -245,6 +263,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				344BE1CB2B2BF4FF00191848 /* Silkscreen-Regular.ttf in Resources */,
 				345AA2302AF2A00900FE644A /* Preview Assets.xcassets in Resources */,
 				345AA22D2AF2A00900FE644A /* Assets.xcassets in Resources */,
 			);
@@ -261,6 +280,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				344BE1C52B2B5EF700191848 /* Silkscreen in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

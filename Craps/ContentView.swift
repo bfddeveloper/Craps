@@ -26,6 +26,7 @@ struct ContentView: View {
     @State var PassScreenOpac = 0.0
     @State private var action: Int? = 0
     @State var showView = false
+    @State var showBack = 1.0
     
     init(PlayerCount: Int) {
             self.PlayerCount = PlayerCount
@@ -62,12 +63,14 @@ struct ContentView: View {
                             VStack{
                                 Image(PlayerImageArray[index])
                                     .resizable()
-                                    .frame(width: 60, height: 80)
+                                    .frame(width: 80, height: 92)
                                 Text(String(PlayerScoreArray[index]))
+                                
                             }
                             
                         }
                     }
+                    .padding()
                     HStack{
                         Image("Coin")
                             .resizable()
@@ -75,7 +78,6 @@ struct ContentView: View {
                         Text(String(Pot))
                     }
                     Spacer()
-                    Text(String(PlayerScoreArray[0]))
                     HStack(spacing: 10) {
                         Image(PlayerImageArray[PLayerTurnIndex])
                             .resizable()
@@ -127,9 +129,11 @@ struct ContentView: View {
                             .resizable()
                             .frame(width: 75, height: 75)
                             .onTapGesture {
+                                showBack = 0.0
                                 self.showView.toggle()
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.50) {
                                     self.showView.toggle()
+                                    showBack = 1.0
                                 }
                                 PassScreenOpac = 1.0
                                 if PLayerTurnIndex == Int(PlayerCount - 1) {
@@ -144,13 +148,15 @@ struct ContentView: View {
                     }
                 
                 }
+                .background(
+                        Image("PokerTable")
+                            .resizable()
+                            .scaleEffect(2)
+                            .opacity(showBack)
+                    )
 
             }
         }
-        .background(
-                Image("PokerTable")
-                    .resizable()
-            )
     }
         func chooseRandom(times:Int) {
             if times > 0 {
