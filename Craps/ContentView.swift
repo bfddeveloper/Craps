@@ -28,6 +28,8 @@ struct ContentView: View {
     @State var showView = false
     @State var showBack = 1.0
     
+    @State private var animateGradient = false
+    
     init(PlayerCount: Int) {
             self.PlayerCount = PlayerCount
             self._PlayerScoreArray = State(initialValue: [Int](repeating: 3, count: PlayerCount))
@@ -38,7 +40,14 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             ZStack{
-               
+
+                RadialGradient(colors: [.green, .yellow], center: .center, startRadius: animateGradient ? 500 : 300, endRadius: animateGradient ? 20 : 40)
+                    .ignoresSafeArea()
+                    .onAppear {
+                        withAnimation(.linear(duration: 6.0).repeatForever(autoreverses: true)) {
+                            animateGradient.toggle()
+                        }
+                    }
                 if showView{
                     ZStack{
                         Rectangle()
@@ -52,6 +61,7 @@ struct ContentView: View {
                                     endPoint: .bottomTrailing))
                             .frame(width: 1000, height: 1000)
                         Text("Pass it to the next guy")
+                            .font(Font.custom("Silkscreen-Bold", size: 50))
                         
                     }
                 }
@@ -63,8 +73,11 @@ struct ContentView: View {
                             VStack{
                                 Image(PlayerImageArray[index])
                                     .resizable()
-                                    .frame(width: 80, height: 92)
+                                    .frame(width: 80, height: 80)
+                                
                                 Text(String(PlayerScoreArray[index]))
+                                    .font(Font.custom("Silkscreen-Regular", size: 35))
+                                    .frame(width: 30, height: 30)
                                 
                             }
                             
@@ -72,19 +85,21 @@ struct ContentView: View {
                     }
                     .padding()
                     HStack{
+                        Text(String(Pot))
+                            .font(Font.custom("Silkscreen-Bold", size: 50))
                         Image("Coin")
                             .resizable()
                             .frame(width: 50, height: 50)
-                        Text(String(Pot))
                     }
                     Spacer()
                     HStack(spacing: 10) {
                         Image(PlayerImageArray[PLayerTurnIndex])
                             .resizable()
-                            .frame(width: 125, height: 170)
+                            .frame(width: 145, height: 170)
                         
                         Text(String(PlayerScoreArray[PlayerScoreArrayIndex]))
-                            .font(.system(size: 35))
+                            .font(Font.custom("Silkscreen-Regular", size: 50))
+                            .padding()
                         Image("Coin")
                             .resizable()
                             .frame(width: 80, height: 80)
@@ -143,18 +158,14 @@ struct ContentView: View {
                                     PlayerScoreArrayIndex += 1
                                     PLayerTurnIndex += 1
                                 }
+                                if (PlayerScoreArray[PlayerScoreArrayIndex] + Pot) == (PlayerCount * 3) {
+                                    GameWin()
+                                }
                                 
                             }
                     }
                 
                 }
-                .background(
-                        Image("PokerTable")
-                            .resizable()
-                            .scaleEffect(2)
-                            .opacity(showBack)
-                    )
-
             }
         }
     }
@@ -166,7 +177,7 @@ struct ContentView: View {
             }
                 if times == 1 {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        if self.DiceValue1 == 0 {
+                        if DiceValue1 == 0 {
                             if (PlayerScoreArrayIndex - 1) == -1 {
                                 self.PlayerScoreArray[(PlayerCount - 1)] += 1
                                 self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
@@ -174,19 +185,19 @@ struct ContentView: View {
                                 self.PlayerScoreArray[(PlayerScoreArrayIndex - 1)] += 1
                                 self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
                             }
-                            if DiceValue1 == 1 {
-                                if (PlayerScoreArrayIndex + 1) > PlayerCount {
-                                    self.PlayerScoreArray[0] += 1
-                                    self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
-                                } else {
-                                    self.PlayerScoreArray[(PlayerScoreArrayIndex + 1)] += 1
-                                    self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
-                                }
-                            }
-                            if DiceValue1 == 2 {
-                                Pot += 1
+                        }
+                        if DiceValue1 == 1 {
+                            if (PlayerScoreArrayIndex + 1) > PlayerCount {
+                                self.PlayerScoreArray[0] += 1
+                                self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
+                            } else {
+                                self.PlayerScoreArray[(PlayerScoreArrayIndex + 1)] += 1
                                 self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
                             }
+                        }
+                        if DiceValue1 == 2 {
+                            Pot += 1
+                            self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
                         }
                         DiceRolled += 1
                     }
@@ -267,7 +278,7 @@ struct ContentView: View {
             }
         }
 }
-    func PlayerScore(){
+    func GameWin(){
         
     }
 }
