@@ -73,13 +73,22 @@ struct Title_screen: View {
                         ContentView(PlayerCount: PlayerCount)
                             .navigationBarBackButtonHidden(true)
                     } label: {
-                        Text("Lets Play")
+                        Text("Play")
+                            .font(Font.custom("Silkscreen-Bold", size: 15))
+                        
                     }
+                    .buttonStyle(GrowingButton1())
+                    .frame(width: 150, height: 20)
+                    .padding(30)
                     NavigationLink{
                         Directions()
                     } label: {
                         Text("How to play")
+                            .font(Font.custom("Silkscreen-Bold", size: 15))
                     }
+                    .buttonStyle(GrowingButton1())
+                    .frame(width: 200, height: 20)
+
                 }
             }
         }
@@ -89,5 +98,18 @@ struct Title_screen: View {
 struct Title_screen_Previews: PreviewProvider {
     static var previews: some View {
         Title_screen(PlayerCount: 3)
+    }
+}
+
+struct GrowingButton1: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .background(.white)
+            .foregroundStyle(.black)
+            .clipShape(Capsule())
+            .scaleEffect(configuration.isPressed ? 1.2 : 1)
+            .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
+                
     }
 }

@@ -28,6 +28,8 @@ struct ContentView: View {
     @State var showView = false
     @State var showBack = 1.0
     
+    @State var showView1 = false
+    
     @State private var animateGradient = false
     
     init(PlayerCount: Int) {
@@ -61,7 +63,29 @@ struct ContentView: View {
                                     endPoint: .bottomTrailing))
                             .frame(width: 1000, height: 1000)
                         Text("Pass it to the next guy")
-                            .font(Font.custom("Silkscreen-Bold", size: 50))
+                            .font(Font.custom("Silkscreen-Bold", size: 40))
+                        
+                    }
+                }
+                if showView1{
+                    ZStack{
+                        RadialGradient(colors: [.green, .yellow], center: .center, startRadius: animateGradient ? 500 : 300, endRadius: animateGradient ? 20 : 40)
+                            .ignoresSafeArea()
+                            .onAppear {
+                                withAnimation(.linear(duration: 6.0).repeatForever(autoreverses: true)) {
+                                    animateGradient.toggle()
+                                }
+                            }
+                        VStack{
+                            Text("You Won")
+                                .font(Font.custom("Silkscreen-Bold", size: 50))
+                            NavigationLink {
+                                Title_screen(PlayerCount: 3)
+                                    .navigationBarBackButtonHidden(true)
+                            } label: {
+                                Text("Restart?")
+                            }
+                        }
                         
                     }
                 }
@@ -99,7 +123,7 @@ struct ContentView: View {
                         
                         Text(String(PlayerScoreArray[PlayerScoreArrayIndex]))
                             .font(Font.custom("Silkscreen-Regular", size: 50))
-                            .padding()
+                            .frame(width: 50, height: 100)
                         Image("Coin")
                             .resizable()
                             .frame(width: 80, height: 80)
@@ -147,6 +171,9 @@ struct ContentView: View {
                                 showBack = 0.0
                                 self.showView.toggle()
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.50) {
+                                    if (PlayerScoreArray[PlayerScoreArrayIndex] + Pot) == (PlayerCount * 3) {
+                                        return
+                                    }
                                     self.showView.toggle()
                                     showBack = 1.0
                                 }
@@ -160,6 +187,9 @@ struct ContentView: View {
                                 }
                                 if (PlayerScoreArray[PlayerScoreArrayIndex] + Pot) == (PlayerCount * 3) {
                                     GameWin()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.50) {
+                                        showBack = 0.0
+                                    }
                                 }
                                 
                             }
@@ -279,7 +309,8 @@ struct ContentView: View {
         }
 }
     func GameWin(){
-        
+        showBack = 0.0
+        self.showView1.toggle()
     }
 }
 
