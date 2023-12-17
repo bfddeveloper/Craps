@@ -18,10 +18,10 @@ struct Title_screen: View {
                 Color.green.ignoresSafeArea()
                 VStack{
                     Text("Left Right Center Mobile")
-                        .font(Font.custom("Silkscreen-Regular", size: 45))
+                        .font(Font.custom("Silkscreen-Regular", size: 35))
                         .padding()
                     Text("How many players:")
-                        .font(Font.custom("Silkscreen-Regular", size: 30))
+                        .font(Font.custom("Silkscreen-Regular", size: 25))
                     
                     HStack{
                         Image("Arrow")
@@ -78,7 +78,7 @@ struct Title_screen: View {
                         
                     }
                     .buttonStyle(GrowingButton1())
-                    .frame(width: 150, height: 20)
+                    .frame(width: 200, height: 15)
                     .padding(30)
                     NavigationLink{
                         Directions()
@@ -87,7 +87,7 @@ struct Title_screen: View {
                             .font(Font.custom("Silkscreen-Bold", size: 15))
                     }
                     .buttonStyle(GrowingButton1())
-                    .frame(width: 200, height: 20)
+                    .frame(width: 225, height: 15)
 
                 }
             }

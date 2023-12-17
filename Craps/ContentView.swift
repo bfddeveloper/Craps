@@ -85,6 +85,7 @@ struct ContentView: View {
                             } label: {
                                 Text("Restart?")
                             }
+                            .buttonStyle(GrowingButton1())
                         }
                         
                     }

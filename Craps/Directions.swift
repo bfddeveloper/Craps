@@ -74,6 +74,7 @@ struct Directions: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     VStack{
+
                         Button {
                             dismiss()
                         } label: {
