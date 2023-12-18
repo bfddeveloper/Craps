@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct ContentView: View {
+    @State var audioPlayer: AVAudioPlayer!
     var PlayerCount: Int
     @State var DiceValue1 = 0
     @State var DiceValue2 = 0
@@ -135,6 +137,7 @@ struct ContentView: View {
                             .rotation3DEffect(.degrees(rotation), axis: (x:1, y:0, z:0))
                             .padding()
                             .onTapGesture {
+                                playSound("dice")
                                 chooseRandom(times: 3)
                                 withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
                                     rotation += 360
@@ -147,6 +150,8 @@ struct ContentView: View {
                             .rotation3DEffect(.degrees(rotation2), axis: (x:1, y:0, z:0))
                             .padding()
                             .onTapGesture {
+                                playSound("dice")
+
                                 chooseRandom1(times: 3)
                                 withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
                                     rotation2 += 360
@@ -160,6 +165,8 @@ struct ContentView: View {
                             .rotation3DEffect(.degrees(rotation3), axis: (x:1, y:0, z:0))
                             .padding()
                             .onTapGesture {
+                                playSound("dice")
+
                                 chooseRandom2(times: 3)
                                 withAnimation(.interpolatingSpring(stiffness: 10, damping: 2)) {
                                     rotation3 += 360
@@ -169,6 +176,7 @@ struct ContentView: View {
                             .resizable()
                             .frame(width: 75, height: 75)
                             .onTapGesture {
+                                playSound("Woosh")
                                 showBack = 0.0
                                 self.showView.toggle()
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.50) {
@@ -312,6 +320,17 @@ struct ContentView: View {
     func GameWin(){
         showBack = 0.0
         self.showView1.toggle()
+    }
+    func playSound(_ soundFileName: String) {
+        guard let soundURL = Bundle.main.url(forResource: soundFileName, withExtension: "wav", subdirectory: "Sounds") else {
+            fatalError("Unable to find \(soundFileName) in bundle")
+        }
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+        } catch {
+            print(error.localizedDescription)
+        }
+        audioPlayer.play()
     }
 }
 
