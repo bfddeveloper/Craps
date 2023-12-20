@@ -22,6 +22,7 @@
 		345AA28E2AF9434D00FE644A /* Directions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345AA28D2AF9434D00FE644A /* Directions.swift */; };
 		3474E5422B2BF62900ED0C09 /* Silkscreen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 344BE1C82B2B5F0400191848 /* Silkscreen-Bold.ttf */; };
 		3474E5482B309FF400ED0C09 /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 3474E5472B309FF400ED0C09 /* Sounds */; };
+		3474E54A2B333F1000ED0C09 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 345AA2882AF8A3F300FE644A /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -269,6 +270,7 @@
 			files = (
 				3474E5422B2BF62900ED0C09 /* Silkscreen-Bold.ttf in Resources */,
 				344BE1CB2B2BF4FF00191848 /* Silkscreen-Regular.ttf in Resources */,
+				3474E54A2B333F1000ED0C09 /* Info.plist in Resources */,
 				345AA2302AF2A00900FE644A /* Preview Assets.xcassets in Resources */,
 				345AA22D2AF2A00900FE644A /* Assets.xcassets in Resources */,
 				3474E5482B309FF400ED0C09 /* Sounds in Resources */,
