@@ -303,7 +303,8 @@ struct ContentView: View {
                         if (PlayerScoreArrayIndex + 1) > PlayerCount {
                             self.PlayerScoreArray[0] += 1
                             self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
-                        } else {
+                        }
+                        if (PlayerScoreArrayIndex + 1) < PlayerCount {
                             self.PlayerScoreArray[(PlayerScoreArrayIndex + 1)] += 1
                             self.PlayerScoreArray[PlayerScoreArrayIndex] -= 1
                         }
